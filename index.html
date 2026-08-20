@@ -39,7 +39,7 @@ button,input,select{font:inherit}.hidden{display:none!important}
       <input id="loginUser" placeholder="اسم المستخدم" value="admin">
       <input id="loginPass" type="password" placeholder="كلمة المرور" value="1234">
       <button class="btn primary" onclick="login()">تسجيل الدخول</button>
-      <button class="btn light" onclick="showSignup()">+ إنشاء حساب جديد</button>
+      <button type="button" class="btn light" id="signupBtn">+ إنشاء حساب جديد</button>
     </div>
 
     <div id="signupForm" class="hidden">
@@ -145,64 +145,97 @@ if(!companies.length) companies=[
 ];
 const save=()=>{localStorage.setItem("alexAreas",JSON.stringify(areas));localStorage.setItem("alexCompanies",JSON.stringify(companies));localStorage.setItem("alexEmployees",JSON.stringify(employees))};
 function showSignup(){
-  loginForm.classList.add("hidden"); signupForm.classList.remove("hidden");
-  authTitle.textContent="إنشاء حساب جديد"; authSub.textContent="سجّل حساب موظف للوصول إلى النظام"; loginMsg.textContent="";
+  const loginFormEl=document.getElementById("loginForm");
+  const signupFormEl=document.getElementById("signupForm");
+  const titleEl=document.getElementById("authTitle");
+  const subEl=document.getElementById("authSub");
+  const msgEl=document.getElementById("loginMsg");
+  if(!loginFormEl || !signupFormEl){ alert("تعذر فتح نموذج إنشاء الحساب. تأكد من رفع index.html الجديد."); return; }
+  loginFormEl.classList.add("hidden");
+  signupFormEl.classList.remove("hidden");
+  titleEl.textContent="إنشاء حساب جديد";
+  subEl.textContent="سجّل حساب موظف للوصول إلى النظام";
+  msgEl.textContent="";
 }
 function showLogin(){
-  signupForm.classList.add("hidden"); loginForm.classList.remove("hidden");
-  authTitle.textContent="تسجيل الدخول"; authSub.textContent="لوحة إدارة الشركات — الإسكندرية"; loginMsg.textContent="";
+  document.getElementById("signupForm").classList.add("hidden");
+  document.getElementById("loginForm").classList.remove("hidden");
+  document.getElementById("authTitle").textContent="تسجيل الدخول";
+  document.getElementById("authSub").textContent="لوحة إدارة الشركات — الإسكندرية";
+  document.getElementById("loginMsg").textContent="";
 }
-async function signup(){
+function signup(){
   const name=document.getElementById("suName").value.trim();
   const user=document.getElementById("suUser").value.trim();
   const pass=document.getElementById("suPass").value;
   const phone=document.getElementById("suPhone").value.trim();
   const role=document.getElementById("suRole").value;
   const msg=document.getElementById("loginMsg");
-  msg.style.color="#d94444";
 
   if(!name || !user || !pass){
+    msg.style.color="#d94444";
     msg.textContent="من فضلك املأ الاسم واسم المستخدم وكلمة المرور";
-    return;
+    return false;
   }
+
   if(user.toLowerCase()==="admin"){
+    msg.style.color="#d94444";
     msg.textContent="اسم المستخدم admin محجوز لمدير النظام";
-    return;
+    return false;
   }
 
   const accounts=JSON.parse(localStorage.getItem("crmAccounts")||"[]");
   if(accounts.some(x=>String(x.user).toLowerCase()===user.toLowerCase())){
+    msg.style.color="#d94444";
     msg.textContent="اسم المستخدم مستخدم بالفعل";
-    return;
+    return false;
   }
 
   const account={
     id:Date.now().toString(),
-    name:name,user:user,pass:pass,phone:phone,role:role,status:"نشط"
+    name:name,
+    user:user,
+    pass:pass,
+    phone:phone,
+    role:role,
+    status:"نشط"
   };
+
   accounts.push(account);
   localStorage.setItem("crmAccounts",JSON.stringify(accounts));
 
-  try{
-    if(typeof syncEmployee==="function") syncEmployee(account);
-  }catch(e){ console.warn("تعذر مزامنة الموظف مع Google Sheets",e); }
+  if(typeof syncEmployee==="function"){
+    try{ syncEmployee(account); }catch(err){ console.warn(err); }
+  }
 
   msg.style.color="#159957";
   msg.textContent="تم إنشاء الحساب بنجاح ✓";
-  document.getElementById("suPass").value="";
 
   setTimeout(function(){
     document.getElementById("loginUser").value=user;
     document.getElementById("loginPass").value="";
     showLogin();
-    document.getElementById("loginUser").value=user;
   },700);
+
+  return false;
 }
 function login(){
+  const u=document.getElementById("loginUser").value.trim();
+  const p=document.getElementById("loginPass").value;
+  const msg=document.getElementById("loginMsg");
   const accounts=JSON.parse(localStorage.getItem("crmAccounts")||"[]");
-  const ok=(loginUser.value==="admin"&&loginPass.value==="1234") || accounts.some(x=>x.user===loginUser.value&&x.pass===loginPass.value&&x.status!=="موقوف");
-  if(ok){sessionStorage.logged="1";sessionStorage.user=loginUser.value;currentUser.textContent=loginUser.value==="admin"?"مدير النظام":loginUser.value;showApp()}
-  else loginMsg.textContent="بيانات الدخول غير صحيحة";
+  const ok=(u==="admin" && p==="1234") ||
+    accounts.some(x=>x.user===u && x.pass===p && x.status!=="موقوف");
+
+  if(ok){
+    sessionStorage.logged="1";
+    sessionStorage.user=u;
+    document.getElementById("currentUser").textContent=u==="admin"?"مدير النظام":u;
+    showApp();
+  }else{
+    msg.style.color="#d94444";
+    msg.textContent="بيانات الدخول غير صحيحة";
+  }
 }
 function showApp(){login.classList.add("hidden");app.classList.remove("hidden");page("home")}
 function logout(){sessionStorage.clear();location.reload()}
@@ -233,5 +266,10 @@ function analytics(){title("تحليل البيانات","مؤشرات تساع�
 function openModal(){modal.classList.add("show")}function closeModal(){modal.classList.remove("show")}
 function wa(p){let n=(p||"").replace(/\D/g,"");if(n.startsWith("0"))n="20"+n.slice(1);window.open("https://wa.me/"+n,"_blank")}
 </script>
-<iframe name="googleSyncFrame" style="display:none"></iframe><script>loadFromGoogleSheets().then(()=>{ if(typeof home==="function" && sessionStorage.logged) home(); });</script></body>
+<iframe name="googleSyncFrame" style="display:none"></iframe><script>loadFromGoogleSheets().then(()=>{ if(typeof home==="function" && sessionStorage.logged) home(); });</script><script>
+document.addEventListener("DOMContentLoaded", function(){
+  const b=document.getElementById("signupBtn");
+  if(b) b.addEventListener("click", function(e){ e.preventDefault(); showSignup(); });
+});
+</script></body>
 </html>
