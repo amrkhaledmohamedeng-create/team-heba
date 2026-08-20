@@ -153,15 +153,50 @@ function showLogin(){
   authTitle.textContent="تسجيل الدخول"; authSub.textContent="لوحة إدارة الشركات — الإسكندرية"; loginMsg.textContent="";
 }
 async function signup(){
-  const name=suName.value.trim(), user=suUser.value.trim(), pass=suPass.value, phone=suPhone.value.trim(), role=suRole.value;
-  if(!name||!user||!pass){loginMsg.textContent="من فضلك املأ الاسم واسم المستخدم وكلمة المرور";return}
+  const name=document.getElementById("suName").value.trim();
+  const user=document.getElementById("suUser").value.trim();
+  const pass=document.getElementById("suPass").value;
+  const phone=document.getElementById("suPhone").value.trim();
+  const role=document.getElementById("suRole").value;
+  const msg=document.getElementById("loginMsg");
+  msg.style.color="#d94444";
+
+  if(!name || !user || !pass){
+    msg.textContent="من فضلك املأ الاسم واسم المستخدم وكلمة المرور";
+    return;
+  }
+  if(user.toLowerCase()==="admin"){
+    msg.textContent="اسم المستخدم admin محجوز لمدير النظام";
+    return;
+  }
+
   const accounts=JSON.parse(localStorage.getItem("crmAccounts")||"[]");
-  if(user==="admin" || accounts.some(x=>x.user===user)){loginMsg.textContent="اسم المستخدم مستخدم بالفعل";return}
-  const account={id:Date.now().toString(),name,user,pass,phone,role,status:"نشط"};
-  accounts.push(account); localStorage.setItem("crmAccounts",JSON.stringify(accounts));
-  if(typeof syncEmployee==="function") syncEmployee(account);
-  loginMsg.style.color="#159957"; loginMsg.textContent="تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.";
-  setTimeout(showLogin,700);
+  if(accounts.some(x=>String(x.user).toLowerCase()===user.toLowerCase())){
+    msg.textContent="اسم المستخدم مستخدم بالفعل";
+    return;
+  }
+
+  const account={
+    id:Date.now().toString(),
+    name:name,user:user,pass:pass,phone:phone,role:role,status:"نشط"
+  };
+  accounts.push(account);
+  localStorage.setItem("crmAccounts",JSON.stringify(accounts));
+
+  try{
+    if(typeof syncEmployee==="function") syncEmployee(account);
+  }catch(e){ console.warn("تعذر مزامنة الموظف مع Google Sheets",e); }
+
+  msg.style.color="#159957";
+  msg.textContent="تم إنشاء الحساب بنجاح ✓";
+  document.getElementById("suPass").value="";
+
+  setTimeout(function(){
+    document.getElementById("loginUser").value=user;
+    document.getElementById("loginPass").value="";
+    showLogin();
+    document.getElementById("loginUser").value=user;
+  },700);
 }
 function login(){
   const accounts=JSON.parse(localStorage.getItem("crmAccounts")||"[]");
