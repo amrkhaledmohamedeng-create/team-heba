@@ -2,7 +2,8 @@ const SHEETS = {
   companies: 'Companies',
   areas: 'Areas',
   employees: 'Employees',
-  activities: 'Activities'
+  activities: 'Activities',
+  users: 'Users'
 };
 
 function setupSheets() {
