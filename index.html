@@ -39,7 +39,7 @@ button,input,select{font:inherit}.hidden{display:none!important}
       <input id="loginUser" placeholder="اسم المستخدم" value="admin">
       <input id="loginPass" type="password" placeholder="كلمة المرور" value="1234">
       <button class="btn primary" onclick="login()">تسجيل الدخول</button>
-      <button type="button" class="btn light" id="signupBtn">+ إنشاء حساب جديد</button>
+      <button type="button" class="btn light" id="signupBtn">+ إنشاء حساب جديد</button><div style="margin-top:10px;font-size:12px;color:#777">ليس لديك حساب؟ اضغط إنشاء حساب جديد</div>
     </div>
 
     <div id="signupForm" class="hidden">
@@ -226,34 +226,35 @@ function login(){
   const accounts=JSON.parse(localStorage.getItem("crmAccounts")||"[]");
   const ok=(u==="admin" && p==="1234") ||
     accounts.some(x=>x.user===u && x.pass===p && x.status!=="موقوف");
-
-  if(ok){
-    sessionStorage.logged="1";
-    sessionStorage.user=u;
-    document.getElementById("currentUser").textContent=u==="admin"?"مدير النظام":u;
-    showApp();
-  }else{
+  if(!ok){
     msg.style.color="#d94444";
-    msg.textContent="بيانات الدخول غير صحيحة";
+    msg.textContent="اسم المستخدم أو كلمة المرور غير صحيحة";
+    return false;
   }
+  sessionStorage.setItem("logged","1");
+  sessionStorage.setItem("user",u);
+  const cu=document.getElementById("currentUser");
+  if(cu) cu.textContent=(u==="admin"?"مدير النظام":u);
+  showApp();
+  return false;
 }
 function showApp(){
   const loginEl=document.getElementById("login");
   const appEl=document.getElementById("app");
-  if(!loginEl || !appEl){
-    alert("تعذر تحميل لوحة التحكم. تأكد أنك رفعت ملف index.html الجديد بالكامل.");
-    return;
-  }
+  if(!loginEl || !appEl){ alert("تعذر تحميل لوحة التحكم."); return; }
+  sessionStorage.setItem("logged","1");
   loginEl.classList.add("hidden");
   appEl.classList.remove("hidden");
   page("home");
 }
-function logout(){sessionStorage.clear();location.reload()}
-if(sessionStorage.logged)showApp();
-function page(name,el){document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(el)el.classList.add("active");({home:home,areas:manageAreas,companies:manageCompanies,employees:manageEmployees,analytics:analytics})[name]()}
-function title(t,s){
-  document.getElementById("pageTitle").textContent=t;
-  document.getElementById("pageSub").textContent=s;
+function logout(){
+  sessionStorage.removeItem("logged");
+  sessionStorage.removeItem("user");
+  const appEl=document.getElementById("app");
+  const loginEl=document.getElementById("login");
+  if(appEl) appEl.classList.add("hidden");
+  if(loginEl) loginEl.classList.remove("hidden");
+  showLogin();
 }
 function home(){const content=document.getElementById("content");title("الرئيسية","نظرة سريعة على قاعدة البيانات");let total=companies.length,done=companies.filter(x=>x.status==="تم التواصل"||x.status==="تمت الزيارة").length,pending=companies.filter(x=>x.status==="تحت التفاوض").length,no=companies.filter(x=>x.status==="لم يتم التواصل").length;content.innerHTML=`<div class="cards"><div class="stat">🏢<span>إجمالي الشركات</span><b>${total}</b></div><div class="stat">📞<span>تم التواصل</span><b>${done}</b></div><div class="stat">⏳<span>تحت التفاوض</span><b>${pending}</b></div><div class="stat">🔴<span>لم يتم التواصل</span><b>${no}</b></div></div><div class="section"><div class="sectionhead"><h2>الأحياء</h2><button class="btn primary" onclick="manageAreas()">إدارة الأحياء</button></div><div class="grid">${Object.keys(areas).map(d=>`<div class="tile" onclick="areaDetails('${d}')"><b>📍 ${d}</b><small>${areas[d].length} منطقة</small></div>`).join("")}</div></div><div class="section"><div class="note">💡 أنت المتحكم في البيانات: يمكنك إضافة وحذف الأحياء والمناطق، إضافة الموظفين، وتغيير حالة كل شركة ومتابعة النتائج من التحليلات.</div></div>`}
 function manageAreas(){const content=document.getElementById("content");title("إدارة المناطق","أضف أو احذف الأحياء والمناطق بنفسك");content.innerHTML=`<div class="section"><div class="sectionhead"><h2>الأحياء الرئيسية</h2><button class="btn primary" onclick="addDistrict()">+ إضافة حي</button></div><div class="grid">${Object.keys(areas).map(d=>`<div class="tile"><b>📍 ${d}</b><small>${areas[d].length} منطقة</small><div class="toolbar" style="margin-top:10px"><button class="btn light" onclick="areaDetails('${d}')">فتح</button><button class="btn danger" onclick="deleteDistrict('${d}')">حذف</button></div></div>`).join("")}</div></div>`}
@@ -288,5 +289,25 @@ document.addEventListener("DOMContentLoaded", function(){
   const b=document.getElementById("signupBtn");
   if(b) b.addEventListener("click", function(e){ e.preventDefault(); showSignup(); });
 });
-</script></body>
+</script>
+<script>
+(function(){
+  function enforceLoginGate(){
+    var loginEl=document.getElementById('login');
+    var appEl=document.getElementById('app');
+    if(!loginEl || !appEl) return;
+    var logged=sessionStorage.getItem('logged')==='1';
+    if(logged){
+      loginEl.classList.add('hidden');
+      appEl.classList.remove('hidden');
+    }else{
+      loginEl.classList.remove('hidden');
+      appEl.classList.add('hidden');
+    }
+  }
+  document.addEventListener('DOMContentLoaded', enforceLoginGate);
+  window.addEventListener('pageshow', enforceLoginGate);
+})();
+</script>
+</body>
 </html>
