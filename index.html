@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--primary:#1769e0;--primary2:#0f4fae;--border:#e5e9f0;--green:#159957;--orange:#d9822b;--red:#d64545;--shadow:0 8px 25px rgba(31,45,61,.08)}
 *{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
-.app{display:flex;min-height:100vh}.sidebar{width:270px;background:#101827;color:#fff;padding:22px 16px;position:fixed;right:0;top:0;bottom:0;z-index:5}.brand{font-size:20px;font-weight:800;padding:8px 10px 24px}.brand small{display:block;color:#93a4bd;font-size:11px;margin-top:6px;font-weight:400}.nav button{width:100%;border:0;background:transparent;color:#cbd5e1;text-align:right;padding:13px 14px;border-radius:10px;cursor:pointer;font-size:14px;margin:3px 0}.nav button:hover,.nav button.active{background:#1d2a3e;color:#fff}.main{margin-right:270px;width:calc(100% - 270px);padding:25px}.top{display:flex;gap:15px;align-items:center;justify-content:space-between;margin-bottom:22px}.search{flex:1;max-width:620px;position:relative}.search input{width:100%;padding:14px 45px 14px 15px;border:1px solid var(--border);border-radius:12px;background:#fff;outline:none;font-size:14px}.search span{position:absolute;right:15px;top:13px}.btn{border:0;border-radius:10px;padding:12px 17px;cursor:pointer;font-weight:700}.primary{background:var(--primary);color:#fff}.secondary{background:#fff;border:1px solid var(--border);color:var(--text)}h1{margin:0;font-size:25px}.sub{color:var(--muted);font-size:13px;margin-top:7px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}.stat{background:var(--card);padding:18px;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border)}.stat b{font-size:26px;display:block;margin-top:7px}.stat span{color:var(--muted);font-size:12px}.section{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:20px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.section h2{font-size:18px;margin:0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:13px}.tile{background:#f8fafc;border:1px solid var(--border);border-radius:13px;padding:18px;cursor:pointer;transition:.18s}.tile:hover{transform:translateY(-2px);border-color:#a9c7f6;background:#f3f8ff}.tile b{display:block;margin-bottom:7px}.tile small{color:var(--muted)}.crumb{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:18px;color:var(--muted);font-size:13px}.crumb button{border:0;background:none;color:var(--primary);cursor:pointer;font-weight:700}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:15px}.company{border:1px solid var(--border);border-radius:14px;padding:17px;background:#fff}.company h3{margin:0 0 7px;font-size:16px}.company .meta{color:var(--muted);font-size:12px;line-height:1.8}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.actions button{border:1px solid var(--border);background:#fff;border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12px}.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:700}.done{background:#e8f8ef;color:var(--green)}.pending{background:#fff4e6;color:var(--orange)}.no{background:#fdecec;color:var(--red)}.detail{display:grid;grid-template-columns:1fr 300px;gap:18px}.info{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:13px}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.field b{font-size:14px}.sidebox{background:#101827;color:#fff;border-radius:14px;padding:18px}.sidebox button{width:100%;margin:5px 0}.empty{text-align:center;padding:35px;color:var(--muted)}.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:20;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{background:#fff;border-radius:16px;width:min(650px,100%);max-height:90vh;overflow:auto;padding:22px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgrid input,.formgrid select,.formgrid textarea{width:100%;padding:11px;border:1px solid var(--border);border-radius:9px;font-family:inherit}.formgrid textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}.modalhead{display:flex;justify-content:space-between;margin-bottom:18px}.close{border:0;background:#f1f5f9;border-radius:8px;padding:7px 11px;cursor:pointer}@media(max-width:900px){.sidebar{width:220px}.main{margin-right:220px;width:calc(100% - 220px)}.stats{grid-template-columns:repeat(2,1fr)}.detail{grid-template-columns:1fr}}@media(max-width:650px){.sidebar{position:static;width:100%;height:auto}.app{display:block}.main{margin:0;width:100%;padding:15px}.stats{grid-template-columns:1fr 1fr}.top{align-items:stretch;flex-direction:column}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
+.app{display:flex;min-height:100vh}.sidebar{width:270px;background:#101827;color:#fff;padding:22px 16px;position:fixed;right:0;top:0;bottom:0;z-index:5}.brand{font-size:20px;font-weight:800;padding:8px 10px 24px}.brand small{display:block;color:#93a4bd;font-size:11px;margin-top:6px;font-weight:400}.nav button{width:100%;border:0;background:transparent;color:#cbd5e1;text-align:right;padding:13px 14px;border-radius:10px;cursor:pointer;font-size:14px;margin:3px 0}.nav button:hover,.nav button.active{background:#1d2a3e;color:#fff}.main{margin-right:270px;width:calc(100% - 270px);padding:25px}.top{display:flex;gap:15px;align-items:center;justify-content:space-between;margin-bottom:22px}.search{flex:1;max-width:620px;position:relative}.search input{width:100%;padding:14px 45px 14px 15px;border:1px solid var(--border);border-radius:12px;background:#fff;outline:none;font-size:14px}.search span{position:absolute;right:15px;top:13px}.btn{border:0;border-radius:10px;padding:12px 17px;cursor:pointer;font-weight:700}.primary{background:var(--primary);color:#fff}.secondary{background:#fff;border:1px solid var(--border);color:var(--text)}h1{margin:0;font-size:25px}.sub{color:var(--muted);font-size:13px;margin-top:7px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}.stat{background:var(--card);padding:18px;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border)}.stat b{font-size:26px;display:block;margin-top:7px}.stat span{color:var(--muted);font-size:12px}.section{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:20px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.section h2{font-size:18px;margin:0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:13px}.tile{background:#f8fafc;border:1px solid var(--border);border-radius:13px;padding:18px;cursor:pointer;transition:.18s}.tile:hover{transform:translateY(-2px);border-color:#a9c7f6;background:#f3f8ff}.tile b{display:block;margin-bottom:7px}.tile small{color:var(--muted)}.crumb{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:18px;color:var(--muted);font-size:13px}.crumb button{border:0;background:none;color:var(--primary);cursor:pointer;font-weight:700}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:15px}.company{border:1px solid var(--border);border-radius:14px;padding:17px;background:#fff}.company h3{margin:0 0 7px;font-size:16px}.company .meta{color:var(--muted);font-size:12px;line-height:1.8}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.actions button{border:1px solid var(--border);background:#fff;border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12px}.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:700}.done{background:#e8f8ef;color:var(--green)}.contacted{background:#e8f0ff;color:#1769e0}.agreed{background:#e7f8f0;color:#087443}.pending{background:#fff4e6;color:var(--orange)}.no{background:#fdecec;color:var(--red)}.detail{display:grid;grid-template-columns:1fr 300px;gap:18px}.info{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:13px}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.field b{font-size:14px}.sidebox{background:#101827;color:#fff;border-radius:14px;padding:18px}.sidebox button{width:100%;margin:5px 0}.empty{text-align:center;padding:35px;color:var(--muted)}.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:20;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{background:#fff;border-radius:16px;width:min(650px,100%);max-height:90vh;overflow:auto;padding:22px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgrid input,.formgrid select,.formgrid textarea{width:100%;padding:11px;border:1px solid var(--border);border-radius:9px;font-family:inherit}.formgrid textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}.modalhead{display:flex;justify-content:space-between;margin-bottom:18px}.close{border:0;background:#f1f5f9;border-radius:8px;padding:7px 11px;cursor:pointer}@media(max-width:900px){.sidebar{width:220px}.main{margin-right:220px;width:calc(100% - 220px)}.stats{grid-template-columns:repeat(2,1fr)}.detail{grid-template-columns:1fr}}@media(max-width:650px){.sidebar{position:static;width:100%;height:auto}.app{display:block}.main{margin:0;width:100%;padding:15px}.stats{grid-template-columns:1fr 1fr}.top{align-items:stretch;flex-direction:column}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -19,7 +19,9 @@
     <button onclick="showAll()">🏢 كل الشركات</button>
     <button onclick="showAreas()">📍 الأحياء والمناطق</button>
     <button onclick="filterStatus('تمت الزيارة')">✅ تمت الزيارة</button>
+    <button onclick="filterStatus('تم التواصل')">📞 تم التواصل</button>
     <button onclick="filterStatus('تحت التفاوض')">⏳ تحت التفاوض</button>
+    <button onclick="filterStatus('تم الاتفاق')">🤝 تم الاتفاق</button>
     <button onclick="filterStatus('لم يتم التواصل')">❌ لم يتم التواصل</button>
     <button onclick="openModal()">➕ إضافة شركة</button>
   </div>
@@ -45,7 +47,7 @@
     <input id="fManager" placeholder="اسم المدير / المسؤول">
     <select id="fDistrict"><option>العجمي</option><option>شرق الإسكندرية</option><option>وسط الإسكندرية</option><option>المنتزه</option><option>العامرية</option><option>برج العرب</option></select>
     <input id="fArea" placeholder="المنطقة">
-    <select id="fStatus"><option>لم يتم التواصل</option><option>تحت التفاوض</option><option>تمت الزيارة</option><option>رفض</option></select>
+    <select id="fStatus"><option>لم يتم التواصل</option><option>تم التواصل</option><option>تحت التفاوض</option><option>تم الاتفاق</option><option>تمت الزيارة</option><option>رفض</option></select>
     <input id="fAddress" placeholder="العنوان">
     <textarea class="full" id="fNotes" placeholder="ملاحظات"></textarea>
    </div>
@@ -69,7 +71,7 @@ let companies=[
  {id:1,name:"شركة الإسكندرية للنقل",activity:"نقل ولوجستيات",phone:"01000000001",manager:"أحمد محمد",district:"العجمي",area:"الهانوفيل",address:"الهانوفيل - الإسكندرية",status:"تحت التفاوض",notes:"تم تقديم العرض."},
  {id:2,name:"شركة النور للتجارة",activity:"تجارة وتوريدات",phone:"01000000002",manager:"محمد علي",district:"العجمي",area:"البيطاش",address:"البيطاش",status:"تمت الزيارة",notes:"بانتظار رد الإدارة."},
  {id:3,name:"Alex Logistics",activity:"شحن ولوجستيات",phone:"01000000003",manager:"محمود حسن",district:"شرق الإسكندرية",area:"سموحة",address:"سموحة",status:"لم يتم التواصل",notes:""},
- {id:4,name:"شركة المستقبل للمقاولات",activity:"مقاولات",phone:"01000000004",manager:"خالد السيد",district:"برج العرب",area:"المنطقة الصناعية الأولى",address:"برج العرب",status:"تمت الزيارة",notes:"مهتم بالتعاقد."},
+ {id:4,name:"شركة المستقبل للمقاولات",activity:"مقاولات",phone:"01000000004",manager:"خالد السيد",district:"برج العرب",area:"المنطقة الصناعية الأولى",address:"برج العرب",status:"تم الاتفاق",notes:"مهتم بالتعاقد."},
  {id:5,name:"المصرية للخدمات",activity:"خدمات عامة",phone:"01000000005",manager:"عمر أحمد",district:"وسط الإسكندرية",area:"محطة الرمل",address:"محطة الرمل",status:"لم يتم التواصل",notes:""}
 ];
 function save(){localStorage.setItem("alexCompanies",JSON.stringify(companies))}
@@ -77,9 +79,11 @@ const saved=localStorage.getItem("alexCompanies"); if(saved) companies=JSON.pars
 function stats(){
  const s=document.getElementById("stats");
  s.innerHTML=`<div class="stat">🏢<span>إجمالي الشركات</span><b>${companies.length}</b></div>
- <div class="stat">✅<span>تمت الزيارة</span><b>${companies.filter(x=>x.status==="تمت الزيارة").length}</b></div>
+ <div class="stat">🔴<span>لم يتم التواصل</span><b>${companies.filter(x=>x.status==="لم يتم التواصل").length}</b></div>
+ <div class="stat">📞<span>تم التواصل</span><b>${companies.filter(x=>x.status==="تم التواصل").length}</b></div>
  <div class="stat">⏳<span>تحت التفاوض</span><b>${companies.filter(x=>x.status==="تحت التفاوض").length}</b></div>
- <div class="stat">❌<span>لم يتم التواصل</span><b>${companies.filter(x=>x.status==="لم يتم التواصل").length}</b></div>`;
+ <div class="stat">🤝<span>تم الاتفاق</span><b>${companies.filter(x=>x.status==="تم الاتفاق").length}</b></div>
+ <div class="stat">✅<span>تمت الزيارة</span><b>${companies.filter(x=>x.status==="تمت الزيارة").length}</b></div>`;
 }
 function home(){stats(); document.getElementById("title").textContent="لوحة التحكم"; document.getElementById("content").innerHTML=`<div class="section"><div class="sectionhead"><h2>أحياء الإسكندرية</h2><button class="btn primary" onclick="openModal()">+ إضافة شركة</button></div><div class="grid">${Object.keys(districts).map(d=>`<div class="tile" onclick="showAreas('${d}')"><b>📍 ${d}</b><small>${districts[d].length} مناطق</small></div>`).join("")}</div></div>`}
 function showAreas(d){
@@ -88,14 +92,71 @@ function showAreas(d){
  let arr=districts[d]||[];
  document.getElementById("content").innerHTML=`<div class="crumb"><button onclick="home()">الرئيسية</button> / ${d}</div><div class="section"><div class="sectionhead"><h2>مناطق ${d}</h2></div><div class="grid">${arr.map(a=>`<div class="tile" onclick="showCompanies('${d}','${a}')"><b>📌 ${a}</b><small>${companies.filter(c=>c.district===d&&c.area===a).length} شركة</small></div>`).join("")}</div></div>`;
 }
-function card(c){let cls=c.status==="تمت الزيارة"?"done":c.status==="تحت التفاوض"?"pending":"no";return `<div class="company"><h3>${c.name}</h3><div class="meta">🏷️ ${c.activity||"غير محدد"}<br>👤 ${c.manager||"غير مسجل"}<br>📞 ${c.phone}<br>📍 ${c.address||c.area}</div><div style="margin-top:9px"><span class="badge ${cls}">${c.status}</span></div><div class="actions"><button onclick="viewCompany(${c.id})">👁️ التفاصيل</button><button onclick="location.href='tel:${c.phone}'">📞 اتصال</button><button onclick="wa('${c.phone}')">💬 واتساب</button><button onclick="quickStatus(${c.id})">🔄 الحالة</button></div></div>`}
+function card(c){
+ const cls=c.status==="تمت الزيارة"?"done":c.status==="تحت التفاوض"?"pending":c.status==="تم التواصل"?"contacted":c.status==="تم الاتفاق"?"agreed":c.status==="رفض"?"no":"no";
+ return `<div class="company" style="cursor:pointer" onclick="viewCompany(${c.id})">
+   <h3>🏢 ${c.name}</h3>
+   <div style="margin-top:10px"><span class="badge ${cls}">${c.status}</span></div>
+   <div class="actions" onclick="event.stopPropagation()">
+     <button onclick="viewCompany(${c.id})">👁️ فتح البيانات</button>
+     <button onclick="quickStatus(${c.id})">🔄 تغيير الحالة</button>
+   </div>
+ </div>`;
+}
 function showCompanies(d,a){stats();document.getElementById("title").textContent=a;let list=companies.filter(c=>c.district===d&&c.area===a);document.getElementById("content").innerHTML=`<div class="crumb"><button onclick="home()">الرئيسية</button> / <button onclick="showAreas('${d}')">${d}</button> / ${a}</div><div class="section"><div class="sectionhead"><h2>شركات ${a}</h2><button class="btn primary" onclick="openModal('${d}','${a}')">+ إضافة شركة</button></div><div class="cards">${list.length?list.map(card).join(""):'<div class="empty">لا توجد شركات مسجلة هنا حتى الآن.</div>'}</div></div>`}
 function showAll(){stats();document.getElementById("title").textContent="كل الشركات";document.getElementById("content").innerHTML=`<div class="section"><div class="sectionhead"><h2>قاعدة البيانات</h2><button class="btn primary" onclick="openModal()">+ إضافة شركة</button></div><div class="cards">${companies.map(card).join("")}</div></div>`}
 function filterStatus(st){stats();document.getElementById("title").textContent=st;let list=companies.filter(c=>c.status===st);document.getElementById("content").innerHTML=`<div class="section"><div class="cards">${list.length?list.map(card).join(""):'<div class="empty">لا توجد بيانات.</div>'}</div></div>`}
 function searchCompanies(q){if(!q.trim()){home();return}let list=companies.filter(c=>(c.name+c.manager+c.phone+c.activity+c.address+c.area+c.district).toLowerCase().includes(q.toLowerCase()));document.getElementById("title").textContent="نتائج البحث";document.getElementById("content").innerHTML=`<div class="section"><div class="cards">${list.length?list.map(card).join(""):'<div class="empty">لا توجد نتائج مطابقة.</div>'}</div></div>`}
-function viewCompany(id){let c=companies.find(x=>x.id===id);stats();document.getElementById("title").textContent=c.name;document.getElementById("content").innerHTML=`<div class="crumb"><button onclick="showCompanies('${c.district}','${c.area}')">${c.area}</button> / ${c.name}</div><div class="detail"><div class="section"><h2 style="margin-top:0">${c.name}</h2><div class="info"><div class="field"><label>النشاط</label><b>${c.activity||"-"}</b></div><div class="field"><label>المدير / المسؤول</label><b>${c.manager||"-"}</b></div><div class="field"><label>رقم التواصل</label><b>${c.phone}</b></div><div class="field"><label>الحي</label><b>${c.district}</b></div><div class="field"><label>المنطقة</label><b>${c.area}</b></div><div class="field"><label>العنوان</label><b>${c.address||"-"}</b></div><div class="field full"><label>ملاحظات</label><b>${c.notes||"لا توجد ملاحظات"}</b></div></div></div><div class="sidebox"><h3>إجراءات سريعة</h3><button class="btn primary" onclick="location.href='tel:${c.phone}'">📞 اتصال</button><button class="btn secondary" onclick="wa('${c.phone}')">💬 واتساب</button><button class="btn secondary" onclick="quickStatus(${c.id})">🔄 تغيير الحالة</button><button class="btn secondary" onclick="deleteCompany(${c.id})">🗑️ حذف الشركة</button></div></div>`}
+function viewCompany(id){
+ let c=companies.find(x=>x.id===id);
+ stats();
+ document.getElementById("title").textContent=c.name;
+ document.getElementById("content").innerHTML=`
+ <div class="crumb"><button onclick="showCompanies('${c.district}','${c.area}')">${c.area}</button> / ${c.name}</div>
+ <div class="detail">
+   <div class="section">
+     <h2 style="margin-top:0">بيانات الشركة</h2>
+     <div class="info">
+       <div class="field"><label>اسم الشركة</label><b>${c.name}</b></div>
+       <div class="field"><label>النشاط</label><b>${c.activity||"-"}</b></div>
+       <div class="field"><label>المدير / المسؤول</label><b>${c.manager||"-"}</b></div>
+       <div class="field"><label>رقم التواصل</label><b>${c.phone||"-"}</b></div>
+       <div class="field"><label>الحي</label><b>${c.district}</b></div>
+       <div class="field"><label>المنطقة</label><b>${c.area}</b></div>
+       <div class="field full"><label>العنوان</label><b>${c.address||"-"}</b></div>
+       <div class="field full"><label>ملاحظات</label><b>${c.notes||"لا توجد ملاحظات"}</b></div>
+     </div>
+   </div>
+   <div class="sidebox">
+     <h3>🎯 التحكم في حالة التواصل</h3>
+     <label style="font-size:12px;color:#b8c4d6">الحالة الحالية</label>
+     <select id="statusSelect" onchange="setStatus(${c.id},this.value)" style="width:100%;padding:11px;border-radius:9px;margin:7px 0 12px;border:1px solid #334155;background:#fff">
+       ${["لم يتم التواصل","تم التواصل","تحت التفاوض","تم الاتفاق","تمت الزيارة","رفض"].map(x=>`<option ${c.status===x?"selected":""}>${x}</option>`).join("")}
+     </select>
+     <button class="btn primary" onclick="location.href='tel:${c.phone}'">📞 اتصال</button>
+     <button class="btn secondary" onclick="wa('${c.phone}')">💬 واتساب</button>
+     <button class="btn secondary" onclick="deleteCompany(${c.id})">🗑️ حذف الشركة</button>
+   </div>
+ </div>`;
+}
+function setStatus(id,status){
+ let c=companies.find(x=>x.id===id);
+ if(!c)return;
+ c.status=status;
+ save();
+ stats();
+ viewCompany(id);
+}
 function wa(p){let n=p.replace(/\D/g,'');if(n.startsWith("0"))n="20"+n.slice(1);window.open("https://wa.me/"+n,"_blank")}
-function quickStatus(id){let c=companies.find(x=>x.id===id);let s=prompt("اكتب الحالة: تمت الزيارة / تحت التفاوض / لم يتم التواصل / رفض",c.status);if(["تمت الزيارة","تحت التفاوض","لم يتم التواصل","رفض"].includes(s)){c.status=s;save();viewCompany(id)}}
+function quickStatus(id){
+ let c=companies.find(x=>x.id===id);
+ if(!c)return;
+ let s=prompt("اختر الحالة بكتابة واحدة من الآتي:\nلم يتم التواصل\nتم التواصل\nتحت التفاوض\nتم الاتفاق\nتمت الزيارة\nرفض",c.status);
+ if(["لم يتم التواصل","تم التواصل","تحت التفاوض","تم الاتفاق","تمت الزيارة","رفض"].includes(s)){
+   c.status=s; save(); renderCurrent();
+ }
+}
+function renderCurrent(){ showAll(); }
 function deleteCompany(id){if(confirm("هل تريد حذف الشركة؟")){companies=companies.filter(c=>c.id!==id);save();showAll()}}
 function openModal(d="",a=""){document.getElementById("modal").classList.add("show");if(d)document.getElementById("fDistrict").value=d;if(a)document.getElementById("fArea").value=a}
 function closeModal(){document.getElementById("modal").classList.remove("show")}
