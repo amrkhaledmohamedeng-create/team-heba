@@ -256,7 +256,78 @@ function logout(){
   if(loginEl) loginEl.classList.remove("hidden");
   showLogin();
 }
-function home(){const content=document.getElementById("content");title("الرئيسية","نظرة سريعة على قاعدة البيانات");let total=companies.length,done=companies.filter(x=>x.status==="تم التواصل"||x.status==="تمت الزيارة").length,pending=companies.filter(x=>x.status==="تحت التفاوض").length,no=companies.filter(x=>x.status==="لم يتم التواصل").length;content.innerHTML=`<div class="cards"><div class="stat">🏢<span>إجمالي الشركات</span><b>${total}</b></div><div class="stat">📞<span>تم التواصل</span><b>${done}</b></div><div class="stat">⏳<span>تحت التفاوض</span><b>${pending}</b></div><div class="stat">🔴<span>لم يتم التواصل</span><b>${no}</b></div></div><div class="section"><div class="sectionhead"><h2>الأحياء</h2><button class="btn primary" onclick="manageAreas()">إدارة الأحياء</button></div><div class="grid">${Object.keys(areas).map(d=>`<div class="tile" onclick="areaDetails('${d}')"><b>📍 ${d}</b><small>${areas[d].length} منطقة</small></div>`).join("")}</div></div><div class="section"><div class="note">💡 أنت المتحكم في البيانات: يمكنك إضافة وحذف الأحياء والمناطق، إضافة الموظفين، وتغيير حالة كل شركة ومتابعة النتائج من التحليلات.</div></div>`}
+
+function page(name,btn){
+  const pages={
+    home:home,
+    areas:manageAreas,
+    companies:manageCompanies,
+    employees:manageEmployees,
+    analytics:analytics
+  };
+  if(typeof pages[name]==="function"){
+    pages[name]();
+  }
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  else{
+    const map={home:0,areas:1,companies:2,employees:3,analytics:4};
+    const buttons=document.querySelectorAll(".nav button");
+    if(buttons[map[name]]) buttons[map[name]].classList.add("active");
+  }
+}
+
+function home(){
+  const content=document.getElementById("content");
+  title("الرئيسية","لوحة التحكم الرئيسية لبيانات شركات الإسكندرية");
+
+  const districtNames=Object.keys(areas);
+  const total=companies.length;
+  const contacted=companies.filter(x=>x.status==="تم التواصل"||x.status==="تمت الزيارة"||x.status==="تم الاتفاق").length;
+  const negotiating=companies.filter(x=>x.status==="تحت التفاوض").length;
+  const notContacted=companies.filter(x=>x.status==="لم يتم التواصل").length;
+
+  const districtCards=districtNames.map(d=>{
+    const districtCompanies=companies.filter(c=>c.district===d).length;
+    return `<button class="tile" style="text-align:right;cursor:pointer" onclick="areaDetails(${JSON.stringify(d)})">
+      <b>📍 ${d}</b>
+      <small>${areas[d].length} منطقة • ${districtCompanies} شركة</small>
+    </button>`;
+  }).join("");
+
+  content.innerHTML=`
+    <div class="cards">
+      <div class="stat">🏢<span>إجمالي الشركات</span><b>${total}</b></div>
+      <div class="stat">📞<span>تم التواصل</span><b>${contacted}</b></div>
+      <div class="stat">⏳<span>تحت التفاوض</span><b>${negotiating}</b></div>
+      <div class="stat">🔴<span>لم يتم التواصل</span><b>${notContacted}</b></div>
+    </div>
+
+    <div class="section">
+      <div class="sectionhead">
+        <div>
+          <h2>أحياء الإسكندرية</h2>
+          <p style="margin:5px 0 0;color:var(--muted);font-size:13px">
+            اضغط على الحي → تظهر المناطق → اضغط على المنطقة → تظهر الشركات → اضغط على الشركة لعرض بياناتها
+          </p>
+        </div>
+        <button class="btn primary" onclick="manageAreas()">⚙️ إدارة الأحياء</button>
+      </div>
+      <div class="grid">${districtCards || `<div class="note">لا توجد أحياء حالياً. اضغط «إدارة الأحياء» لإضافة أول حي.</div>`}</div>
+    </div>
+
+    <div class="section">
+      <div class="sectionhead">
+        <h2>اختصارات سريعة</h2>
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+        <button class="tile" onclick="openCompany()"><b>➕ إضافة شركة</b><small>إضافة شركة وبيانات المدير والتواصل</small></button>
+        <button class="tile" onclick="manageAreas()"><b>📍 إدارة المناطق</b><small>إضافة أو حذف الأحياء والمناطق</small></button>
+        <button class="tile" onclick="analytics()"><b>📊 تحليل البيانات</b><small>متابعة حالة الشركات والتواصل</small></button>
+      </div>
+    </div>
+  `;
+}
 function manageAreas(){const content=document.getElementById("content");title("إدارة المناطق","أضف أو احذف الأحياء والمناطق بنفسك");content.innerHTML=`<div class="section"><div class="sectionhead"><h2>الأحياء الرئيسية</h2><button class="btn primary" onclick="addDistrict()">+ إضافة حي</button></div><div class="grid">${Object.keys(areas).map(d=>`<div class="tile"><b>📍 ${d}</b><small>${areas[d].length} منطقة</small><div class="toolbar" style="margin-top:10px"><button class="btn light" onclick="areaDetails('${d}')">فتح</button><button class="btn danger" onclick="deleteDistrict('${d}')">حذف</button></div></div>`).join("")}</div></div>`}
 function areaDetails(d){const content=document.getElementById("content");title(d,"إدارة مناطق الحي");content.innerHTML=`<div class="section"><div class="sectionhead"><h2>مناطق ${d}</h2><div class="toolbar"><button class="btn primary" onclick="addArea('${d}')">+ إضافة منطقة</button><button class="btn light" onclick="manageAreas()">رجوع</button></div></div><div class="grid">${areas[d].map(a=>`<div class="tile"><b>📌 ${a}</b><small>${companies.filter(c=>c.district===d&&c.area===a).length} شركة</small><div class="toolbar" style="margin-top:10px"><button class="btn light" onclick="areaCompanies('${d}','${a}')">الشركات</button><button class="btn danger" onclick="deleteArea('${d}','${a}')">حذف</button></div></div>`).join("")}</div></div>`}
 function manageCompanies(){const content=document.getElementById("content");title("الشركات","بيانات الشركات تظهر عند فتح الشركة فقط");content.innerHTML=`<div class="section"><div class="toolbar"><input id="companySearch" placeholder="بحث باسم الشركة..." oninput="renderCompanyTable()"><select id="statusFilter" onchange="renderCompanyTable()"><option value="">كل الحالات</option><option>لم يتم التواصل</option><option>تم التواصل</option><option>تحت التفاوض</option><option>تم الاتفاق</option><option>تمت الزيارة</option><option>رفض</option></select><button class="btn primary" onclick="openCompany()">+ إضافة شركة</button></div><div id="companyTable" style="margin-top:15px"></div></div>`;renderCompanyTable()}
@@ -284,7 +355,7 @@ function analytics(){const content=document.getElementById("content");title("ت�
 function openModal(){modal.classList.add("show")}function closeModal(){modal.classList.remove("show")}
 function wa(p){let n=(p||"").replace(/\D/g,"");if(n.startsWith("0"))n="20"+n.slice(1);window.open("https://wa.me/"+n,"_blank")}
 </script>
-<iframe name="googleSyncFrame" style="display:none"></iframe><script>loadFromGoogleSheets().then(()=>{ if(typeof home==="function" && sessionStorage.logged) home(); });</script><script>
+<iframe name="googleSyncFrame" style="display:none"></iframe><script>loadFromGoogleSheets().then(()=>{ if(typeof home==="function" && sessionStorage.getItem("logged")==="1") home(); });</script><script>
 document.addEventListener("DOMContentLoaded", function(){
   const b=document.getElementById("signupBtn");
   if(b) b.addEventListener("click", function(e){ e.preventDefault(); showSignup(); });
@@ -308,6 +379,17 @@ document.addEventListener("DOMContentLoaded", function(){
   document.addEventListener('DOMContentLoaded', enforceLoginGate);
   window.addEventListener('pageshow', enforceLoginGate);
 })();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  if(sessionStorage.getItem("logged")==="1"){
+    const loginEl=document.getElementById("login"), appEl=document.getElementById("app");
+    if(loginEl) loginEl.classList.add("hidden");
+    if(appEl) appEl.classList.remove("hidden");
+    if(typeof page==="function") page("home");
+  }
+});
 </script>
 </body>
 </html>
